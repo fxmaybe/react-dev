@@ -5,7 +5,7 @@ const DB_URL = 'mongodb://localhost:27017/reactdev';
 
 mongoose.connect(DB_URL);
 mongoose.connection.on('connected', function() {
-    console.log('reactdev连接成功！');
+    console.log('reactdev connected success!');
 });
 
 const User = mongoose.model('user', mongoose.Schema({
@@ -43,7 +43,7 @@ const User = mongoose.model('user', mongoose.Schema({
 
 const app = express();
 app.listen(9023, function() {
-    console.log('express启动，端口为9023');
+    console.log('express start success on port: 9023');
 });
 
 app.get('/', function(req, res) {
@@ -51,6 +51,17 @@ app.get('/', function(req, res) {
 });
 
 app.get('/data', function (req, res) {
+    console.log(req.query);
+    User.find({name: req.query.name}, function(err, doc) {
+        if(err) {
+          console.log(err);
+          return;
+        } 
+        res.json(doc);
+    });
+});
+
+app.get('/user', function (req, res) {
     
     User.find({name: req.query.name}, function(err, doc) {
         if(err) {
