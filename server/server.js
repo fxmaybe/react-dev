@@ -21,8 +21,8 @@ const User = mongoose.model('user', mongoose.Schema({
 
 // 新建接口
 // User.create({
-//     name: 'xiaohua',
-//     age: 10
+//     name: 'xiaoming',
+//     age: 18
 // }, function(err, doc) {
 //     if(err) {
 //         console.log(err);
@@ -36,7 +36,7 @@ const User = mongoose.model('user', mongoose.Schema({
 
 // 删除接口
 // User.remove({
-//     age: 12
+//     age: 18
 // }, function(err, doc) {
 
 // });
@@ -52,12 +52,13 @@ app.get('/', function(req, res) {
 
 app.get('/data', function (req, res) {
     console.log(req.query);
-    User.find({name: req.query.name}, function(err, doc) {
+    User.findOne({name: req.query.name}, function(err, doc) {
         if(err) {
           console.log(err);
           return;
-        } 
-        res.json(doc);
+        }
+        
+        res.json(doc === null ? {} : doc);
     });
 });
 

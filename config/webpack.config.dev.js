@@ -231,6 +231,15 @@ module.exports = {
                     },
                   },
                 ],
+                [
+                  "import", 
+                  {
+                    libraryName: "antd-mobile",
+                    style: "css"
+                  }
+                ],
+                ["@babel/plugin-proposal-decorators", { "legacy": true }],
+                ["@babel/plugin-proposal-class-properties", { "loose": true }],
               ],
               // This is a feature of `babel-loader` for webpack (not Babel itself).
               // It enables caching results in ./node_modules/.cache/babel-loader/
