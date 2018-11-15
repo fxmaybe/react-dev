@@ -1,15 +1,15 @@
 import React from 'react';
-import Test from './pages/test';
+import './app.less';
 
 class App extends React.Component {
     render() {
-        return (
-            <div>
-              <Test>
-
-              </Test>
-            </div>     
-        );
+      return (
+          <div>
+            {
+              this.props.children
+            }
+          </div>     
+      );
     }
 }
 

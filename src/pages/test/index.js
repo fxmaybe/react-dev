@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button} from 'antd-mobile';
+import { Button, WingBlank} from 'antd-mobile';
 import { connect } from 'react-redux';
 import {testAdd, testMinus} from './../../redux/action';
 
@@ -38,8 +38,8 @@ class Test extends React.Component {
   }
   render() {
     return (
-      <div className="App">
-        <div style={{padding: '0 10px'}}>
+      <div className="test">
+        <WingBlank>
           <h1 style={{textAlign: 'center'}}>Hello {this.state.userInfo.name}!{this.props.num}</h1>
           <Button type="primary" onClick={this.addNum}>
             加1
@@ -48,7 +48,7 @@ class Test extends React.Component {
           <Button onClick={this.minusNum}>
             减1
           </Button>
-        </div>
+        </WingBlank>
       </div>
     );
   }

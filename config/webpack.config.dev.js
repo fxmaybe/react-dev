@@ -198,6 +198,49 @@ module.exports = {
         // match the requirements. When no loader matches it will fall
         // back to the "file" loader at the end of the loader list.
         oneOf: [
+          {
+            test: /\.less$/,
+            use: [
+              require.resolve("style-loader"),
+              {
+                loader: require.resolve("css-loader"),
+                options: {
+                  importLoaders: 1,
+                },
+              },
+              {
+                loader: require.resolve("postcss-loader"),
+                options: {
+                  // Necessary for external CSS imports to work
+                  // https://github.com/facebookincubator/create-react-app/issues/2677
+                  ident: "postcss",
+                  plugins: () => [
+                    require("postcss-flexbugs-fixes"),
+                    autoprefixer({
+                      browsers: [
+                        ">1%",
+                        "last 4 versions",
+                        "Firefox ESR",
+                        "not ie < 9", // React doesn"t support IE8 anyway
+                      ],
+                      flexbox: "no-2009",
+                    }),
+                  ],
+                },
+              },
+              {
+                loader: require.resolve("less-loader"),
+                options: {
+                  modules: false,
+                  javascriptEnabled: true,
+                  modifyVars: {
+                    "@brand-rimary": "#f60" // 组件/浮层圆角
+
+                  }
+                }
+              }
+            ],
+          },
           // "url" loader works like "file" loader except that it embeds assets
           // smaller than specified limit in bytes as data URLs to avoid requests.
           // A missing `test` is equivalent to a match.
