@@ -24,9 +24,9 @@ class Test extends React.Component {
     }
   }
   componentWillMount() {
-    axios.get('/data?name=xiaoming').then(res => {
+    axios.get('/user/info?name=xiaoming').then(res => {
       this.setState({
-        userInfo: res.data
+        userInfo: res.data.data
       });
     });
   }

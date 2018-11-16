@@ -272,6 +272,49 @@ module.exports = {
         // match the requirements. When no loader matches it will fall
         // back to the "file" loader at the end of the loader list.
         oneOf: [
+          {
+             test: /\.less$/,
+             use: [
+               require.resolve("style-loader"),
+               {
+                 loader: require.resolve("css-loader"),
+                 options: {
+                   importLoaders: 1,
+                 },
+               },
+               {
+                 loader: require.resolve("postcss-loader"),
+                 options: {
+                   // Necessary for external CSS imports to work
+                   // https://github.com/facebookincubator/create-react-app/issues/2677
+                   ident: "postcss",
+                   plugins: () => [
+                     require("postcss-flexbugs-fixes"),
+                     autoprefixer({
+                       browsers: [
+                         ">1%",
+                         "last 4 versions",
+                         "Firefox ESR",
+                         "not ie < 9", // React doesn"t support IE8 anyway
+                       ],
+                       flexbox: "no-2009",
+                     }),
+                   ],
+                 },
+               },
+               {
+                 loader: require.resolve("less-loader"),
+                 options: {
+                   modules: false,
+                   javascriptEnabled: true,
+                   modifyVars: {
+                     "@brand-rimary": "#f60" // 组件/浮层圆角
+
+                   }
+                 }
+               }
+             ],
+          },
           // "url" loader works just like "file" loader but it also embeds
           // assets smaller than specified size as data URLs to avoid requests.
           {
@@ -305,6 +348,19 @@ module.exports = {
                     },
                   },
                 ],
+                [
+                  "import",
+                  {
+                    libraryName: "antd-mobile",
+                    style: "css"
+                  }
+                ],
+                ["@babel/plugin-proposal-decorators", {
+                  "legacy": true
+                }],
+                ["@babel/plugin-proposal-class-properties", {
+                  "loose": true
+                }],
               ],
               cacheDirectory: true,
               // Save disk space when time isn't as important
